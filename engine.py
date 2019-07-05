@@ -291,7 +291,6 @@ def main():
 
     libtcod.console_set_custom_font('TiledFont.png', libtcod.FONT_TYPE_GRAYSCALE | libtcod.FONT_LAYOUT_TCOD, 32, 10)  # setting 10 to 8 will prove that the bitmaps are loaded
 
-
     libtcod.console_init_root(constants['screen_width'], constants['screen_height'], constants['window_title'], False,
                               libtcod.RENDERER_SDL2)
     load_customfont()

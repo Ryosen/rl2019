@@ -20,7 +20,7 @@ from map_objects.tile import Tile
 from random_utils import from_dungeon_level, random_choice_from_dict
 
 from render_functions import RenderOrder
-
+from tiles import Tiles
 
 class GameMap:
     def __init__(self, width, height, dungeon_level=1):
@@ -164,7 +164,7 @@ class GameMap:
                     fighter_component = Fighter(hp=5, defense=0, power=4, xp=20)
                     ai_component = Bat()
 
-                    monster = Entity(x, y, 'b', libtcod.dark_grey, 'Bat', blocks=True,
+                    monster = Entity(x, y, Tiles.bat_tile, libtcod.red, 'Bat', blocks=True,
                                      render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
 
                 elif monster_choice == 'ogre':
