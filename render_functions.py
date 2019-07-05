@@ -54,9 +54,9 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
                     # if it's not visible right now, the player can only see it if it's explored
                     if game_map.tiles[x][y].explored:
                         if wall:
-                            libtcod.console_put_char_ex(con, x, y, Tiles.wall_tile, libtcod.grey, libtcod.dark_gray)
+                            libtcod.console_put_char_ex(con, x, y, Tiles.wall_tile, libtcod.grey, libtcod.darker_gray)
                         else:
-                            libtcod.console_put_char_ex(con, x, y, Tiles.floor_tile, libtcod.grey, libtcod.dark_gray)
+                            libtcod.console_put_char_ex(con, x, y, Tiles.floor_tile, libtcod.grey, libtcod.darker_gray)
                 else:
                     # it's visible
                     if wall:
