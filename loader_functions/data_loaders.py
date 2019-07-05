@@ -2,18 +2,18 @@ import os
 
 import shelve
 
+base_dir = '.data/'
+
 
 def save_game(player, entities, game_map, message_log, game_state):
 
-
-
-    if not os.path.isdir('.data'):
+    if not os.path.isdir(base_dir):
         try:
-            os.mkdir('.data')
+            os.mkdir(base_dir)
         except OSError:
             print('Unable to create data directory')
 
-    with shelve.open('.data/savegame.dat', 'n') as data_file:
+    with shelve.open(base_dir + 'savegame', 'n') as data_file:
         data_file['player_index'] = entities.index(player)
         data_file['entities'] = entities
         data_file['game_map'] = game_map
@@ -22,10 +22,11 @@ def save_game(player, entities, game_map, message_log, game_state):
 
 
 def load_game():
-    if not os.path.isfile('savegame.dat'):
+
+    if not os.path.isfile(base_dir + 'savegame.dat'):
         raise FileNotFoundError
 
-    with shelve.open('.data/savegame.dat', 'r') as data_file:
+    with shelve.open(base_dir + 'savegame', 'r') as data_file:
         player_index = data_file['player_index']
         entities = data_file['entities']
         game_map = data_file['game_map']

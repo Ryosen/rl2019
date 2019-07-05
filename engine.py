@@ -275,7 +275,6 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 game_state = GameStates.PLAYERS_TURN
 
 
-
 def load_customfont():
     # The index of the first custom tile in the file
     a = 256
@@ -283,15 +282,14 @@ def load_customfont():
     # The "y" is the row index, here we load the sixth row in the font file.
     # Increase the "6" to load any new rows from the file
     for y in range(5, 6):
-         libtcod.console_map_ascii_codes_to_font(a, 32, 0, y)
-         a += 32
+        libtcod.console_map_ascii_codes_to_font(a, 32, 0, y)
+        a += 32
 
-    # libtcod.console_map_ascii_codes_to_font(256, 32, 0, 5)
 
 def main():
     constants = get_constants()
 
-    libtcod.console_set_custom_font('TiledFont.png', libtcod.FONT_TYPE_GRAYSCALE | libtcod.FONT_LAYOUT_TCOD, 32, 10)
+    libtcod.console_set_custom_font('TiledFont.png', libtcod.FONT_TYPE_GRAYSCALE | libtcod.FONT_LAYOUT_TCOD, 32, 10)  # setting 10 to 8 will prove that the bitmaps are loaded
 
     load_customfont()
     libtcod.console_init_root(constants['screen_width'], constants['screen_height'], constants['window_title'], False,

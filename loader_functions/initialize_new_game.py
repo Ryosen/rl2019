@@ -14,7 +14,7 @@ from render_functions import RenderOrder
 from tiles import Tiles
 
 def get_constants():
-    window_title = 'CW Secret'
+    window_title = 'The Wizard'
 
     screen_width = 80
     screen_height = 50

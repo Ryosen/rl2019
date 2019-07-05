@@ -3,7 +3,7 @@
 class Tiles:
     wall_tile = 256
     floor_tile = 257
-    player_tile = 258
+    player_tile = 64 # 258
     orc_tile = 259
     troll_tile = 260
     scroll_tile = 261
