@@ -1,7 +1,7 @@
 
 
 class Tiles:
-    bat_tile = 'b'
+    bat_tile = 98
     wall_tile = 256
     floor_tile = 257
     player_tile = 258
