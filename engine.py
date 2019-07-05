@@ -10,7 +10,7 @@ from loader_functions.initialize_new_game import get_constants, get_game_variabl
 from loader_functions.data_loaders import load_game, save_game
 from menus import main_menu, message_box
 from render_functions import clear_all, render_all
-
+from tiles import Tiles
 
 def play_game(player, entities, game_map, message_log, game_state, con, panel, constants):
     fov_recompute = True
@@ -285,11 +285,31 @@ def load_customfont():
         libtcod.console_map_ascii_codes_to_font(a, 32, 0, y)
         a += 32
 
+def init_fontmap(fontname):
+    row_length = 0
+    rows = 0
+    font_file = ''
+
+    if fontname == 'sprites1':
+        font_file = 'sprites1.png'
+        row_length = 16
+        rows = 33
+        Tiles.bat_tile = 65
+
+    elif fontname == 'TiledFont':
+        font_file = 'TiledFont.png'
+        row_length = 32
+        rows = 10
+        Tiles.bat_tile = 98
+
+    libtcod.console_set_custom_font(font_file, libtcod.FONT_TYPE_GRAYSCALE | libtcod.FONT_LAYOUT_TCOD, row_length, rows)
+
 
 def main():
     constants = get_constants()
 
-    libtcod.console_set_custom_font('TiledFont.png', libtcod.FONT_TYPE_GRAYSCALE | libtcod.FONT_LAYOUT_TCOD, 32, 10)  # setting 10 to 8 will prove that the bitmaps are loaded
+    # libtcod.console_set_custom_font('TiledFont.png', libtcod.FONT_TYPE_GRAYSCALE | libtcod.FONT_LAYOUT_TCOD, 32, 10)  # setting 10 to 8 will prove that the bitmaps are loaded
+    init_fontmap('sprites1')
 
     libtcod.console_init_root(constants['screen_width'], constants['screen_height'], constants['window_title'], False,
                               libtcod.RENDERER_SDL2)
