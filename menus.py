@@ -95,3 +95,23 @@ def character_screen(player, character_screen_width, character_screen_height, sc
 
 def message_box(con, header, width, screen_width, screen_height):
     menu(con, header, [], width, screen_width, screen_height)
+
+
+def testpage_screen(character_screen_width, character_screen_height, screen_width, screen_height):
+    window = libtcod.console_new(character_screen_width, character_screen_height)
+
+    libtcod.console_set_default_foreground(window, libtcod.white)
+
+    libtcod.console_print_rect_ex(window, 0, 1, character_screen_width, character_screen_height, libtcod.BKGND_NONE,
+                                  libtcod.LEFT, 'Test Page')
+
+    n = 0
+    for r in range(0,10):
+        for c in range(0, 32):
+            n = n + 1
+            libtcod.console_put_char_ex(window, c, 3 + r, n, libtcod.white, libtcod.red)
+
+
+    x = screen_width // 2 - character_screen_width // 2
+    y = screen_height // 2 - character_screen_height // 2
+    libtcod.console_blit(window, 0, 0, screen_width, screen_height, 0, x, y, 1.0, 0.7)

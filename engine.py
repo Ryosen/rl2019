@@ -57,10 +57,22 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
         exit = action.get('exit')
         fullscreen = action.get('fullscreen')
 
+
         left_click = mouse_action.get('left_click')
         right_click = mouse_action.get('right_click')
 
         player_turn_results = []
+
+
+
+
+        if action.get('show_testpage'):
+            previous_game_state = game_state
+            game_state = GameStates.SHOW_TESTPAGE
+            print('show test page')
+
+
+
 
         if move and game_state == GameStates.PLAYERS_TURN:
             dx, dy = move
@@ -92,6 +104,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                     break
             else:
                 message_log.add_message(Message('There is nothing here to pick up.', libtcod.yellow))
+
 
         if show_inventory:
             previous_game_state = game_state
@@ -148,7 +161,8 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 player_turn_results.append({'targeting_cancelled': True})
 
         if exit:
-            if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY, GameStates.CHARACTER_SCREEN):
+            if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY, GameStates.CHARACTER_SCREEN,
+                              GameStates.SHOW_TESTPAGE):
                 game_state = previous_game_state
             elif game_state == GameStates.TARGETING:
                 player_turn_results.append({'targeting_cancelled': True})
@@ -261,6 +275,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 game_state = GameStates.PLAYERS_TURN
 
 
+
 def load_customfont():
     # The index of the first custom tile in the file
     a = 256
@@ -268,19 +283,23 @@ def load_customfont():
     # The "y" is the row index, here we load the sixth row in the font file.
     # Increase the "6" to load any new rows from the file
     for y in range(5, 6):
-        libtcod.console_map_ascii_codes_to_font(a, 32, 0, y)
-        a += 32
+         libtcod.console_map_ascii_codes_to_font(a, 32, 0, y)
+         a += 32
 
+    # libtcod.console_map_ascii_codes_to_font(256, 32, 0, 5)
 
 def main():
     constants = get_constants()
 
-    libtcod.console_set_custom_font('TiledFont.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_TCOD, 32, 10)
-    load_customfont()
-    libtcod.console_init_root(constants['screen_width'], constants['screen_height'], constants['window_title'], False)
+    libtcod.console_set_custom_font('TiledFont.png', libtcod.FONT_TYPE_GRAYSCALE | libtcod.FONT_LAYOUT_TCOD, 32, 10)
 
-    con = libtcod.console_new(constants['screen_width'], constants['screen_height'])
-    panel = libtcod.console_new(constants['screen_width'], constants['panel_height'])
+    load_customfont()
+    libtcod.console_init_root(constants['screen_width'], constants['screen_height'], constants['window_title'], False,
+                              libtcod.RENDERER_SDL2)
+
+    con = libtcod.console.Console(constants['screen_width'], constants['screen_height'])
+    # con = libtcod.console_new(constants['screen_width'], constants['screen_height'])
+    panel = libtcod.console.Console(constants['screen_width'], constants['panel_height'])
 
     player = None
     entities = []
@@ -331,7 +350,8 @@ def main():
                 break
 
         else:
-            libtcod.console_clear(con)
+            # libtcod.console_clear(con)
+            con.clear()
             play_game(player, entities, game_map, message_log, game_state, con, panel, constants)
 
             show_main_menu = True

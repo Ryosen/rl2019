@@ -16,6 +16,8 @@ def handle_keys(key, game_state):
         return handle_level_up_menu(key)
     elif game_state == GameStates.CHARACTER_SCREEN:
         return handle_character_screen(key)
+    elif game_state == GameStates.SHOW_TESTPAGE:
+        return handle_testpage_screen(key)
 
     return {}
 
@@ -45,6 +47,7 @@ def handle_player_turn_keys(key):
     elif key.vk == libtcod.KEY_SPACE:
         return {'take_stairs': True}
     elif key_char == 'c':
+        print('c')
         return {'show_character_screen': True}
     if key.vk == libtcod.KEY_ENTER and key.lalt:
         # Alt+Enter: toggle full screen
@@ -52,6 +55,9 @@ def handle_player_turn_keys(key):
     elif key.vk == libtcod.KEY_ESCAPE:
         # Exit the game
         return {'exit': True}
+
+    if key.vk == libtcod.KEY_F12:
+        return {'show_testpage': True}
 
     # No key was pressed
     return {}
@@ -128,6 +134,14 @@ def handle_character_screen(key):
         return {'exit': True}
 
     return {}
+
+
+def handle_testpage_screen(key):
+    if key.vk == libtcod.KEY_ESCAPE:
+        return {'exit': True}
+
+    return {}
+
 
 
 def handle_mouse(mouse):

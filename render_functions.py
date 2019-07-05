@@ -6,7 +6,7 @@ from game_states import GameStates
 
 from tiles import Tiles
 
-from menus import character_screen, inventory_menu, level_up_menu
+from menus import character_screen, inventory_menu, level_up_menu, testpage_screen
 
 
 class RenderOrder(Enum):
@@ -110,6 +110,8 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
     elif game_state == GameStates.CHARACTER_SCREEN:
         character_screen(player, 30, 10, screen_width, screen_height)
 
+    elif game_state == GameStates.SHOW_TESTPAGE:
+        testpage_screen(50, 20, screen_width, screen_height)
 
 def clear_all(con, entities):
     for entity in entities:
